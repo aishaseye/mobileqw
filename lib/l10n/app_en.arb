@@ -1,0 +1,137 @@
+{
+  "@@locale": "en",
+  "appName": "QualyWatch",
+  "@appName": {
+    "description": "The name of the application"
+  },
+
+  "welcome": "Welcome",
+  "@welcome": {
+    "description": "Welcome message"
+  },
+
+  "getStarted": "Get Started",
+  "@getStarted": {
+    "description": "Get started button text"
+  },
+
+  "next": "Next",
+  "@next": {
+    "description": "Next button text"
+  },
+
+  "skip": "Skip",
+  "@skip": {
+    "description": "Skip button text"
+  },
+
+  "back": "Back",
+  "@back": {
+    "description": "Back button text"
+  },
+
+  "finish": "Finish",
+  "@finish": {
+    "description": "Finish button text"
+  },
+
+  "scanQrCode": "Scan QR Code",
+  "@scanQrCode": {
+    "description": "Scan QR code action"
+  },
+
+  "giveFeedback": "Give Feedback",
+  "@giveFeedback": {
+    "description": "Give feedback action"
+  },
+
+  "earnRewards": "Earn Rewards",
+  "@earnRewards": {
+    "description": "Earn rewards action"
+  },
+
+  "onboardingTitle1": "Monitor Customer Feedback",
+  "@onboardingTitle1": {
+    "description": "First onboarding screen title"
+  },
+
+  "onboardingDesc1": "Track and analyze customer feedback from QR code scans to improve your services and customer satisfaction",
+  "@onboardingDesc1": {
+    "description": "First onboarding screen description"
+  },
+
+  "onboardingTitle2": "Real-Time Insights",
+  "@onboardingTitle2": {
+    "description": "Second onboarding screen title"
+  },
+
+  "onboardingDesc2": "Get instant notifications about customer feedback and respond quickly to improve your business reputation",
+  "@onboardingDesc2": {
+    "description": "Second onboarding screen description"
+  },
+
+  "onboardingTitle3": "Grow Your Business",
+  "@onboardingTitle3": {
+    "description": "Third onboarding screen title"
+  },
+
+  "onboardingDesc3": "Use detailed analytics and customer insights to make data-driven decisions and enhance your services",
+  "@onboardingDesc3": {
+    "description": "Third onboarding screen description"
+  },
+
+  "email": "Email",
+  "@email": {
+    "description": "Email field label"
+  },
+
+  "password": "Password",
+  "@password": {
+    "description": "Password field label"
+  },
+
+  "login": "Login",
+  "@login": {
+    "description": "Login button text"
+  },
+
+  "register": "Register",
+  "@register": {
+    "description": "Register button text"
+  },
+
+  "feedback": "Feedback",
+  "@feedback": {
+    "description": "Feedback label"
+  },
+
+  "rewards": "Rewards",
+  "@rewards": {
+    "description": "Rewards label"
+  },
+
+  "profile": "Profile",
+  "@profile": {
+    "description": "Profile label"
+  },
+
+  "settings": "Settings",
+  "@settings": {
+    "description": "Settings label"
+  },
+
+  "language": "Language",
+  "@language": {
+    "description": "Language setting"
+  },
+
+  "french": "French",
+  "@french": {
+    "description": "French language option"
+  },
+
+  "english": "English",
+  "@english": {
+    "description": "English language option"
+  }
+}
