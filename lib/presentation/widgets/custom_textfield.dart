@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qualywatchmobile/core/constants/app_colors.dart';
+import 'package:qualywatchmobile/core/constants/app_fonts.dart';
 // Import de votre classe AppColors existante
 
 // Widget TextField personnalisé réutilisable
@@ -12,6 +13,9 @@ class CustomTextField extends StatefulWidget {
   final TextEditingController? controller;
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
+  final bool readOnly;
+  final VoidCallback? onTap;
+  final int? maxLines;
 
   const CustomTextField({
     Key? key,
@@ -23,6 +27,9 @@ class CustomTextField extends StatefulWidget {
     this.controller,
     this.validator,
     this.onChanged,
+    this.readOnly = false,
+    this.onTap,
+    this.maxLines = 1,
   }) : super(key: key);
 
   @override
@@ -41,7 +48,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         if (widget.label != null) ...[
           Text(
             widget.label!,
-            style: const TextStyle(
+            style: AppFonts.urbanist(
               fontSize: 14,
               fontWeight: FontWeight.w600,
               color: AppColors.black,
@@ -61,15 +68,19 @@ class _CustomTextFieldState extends State<CustomTextField> {
             obscureText: widget.isPassword ? _obscureText : false,
             onChanged: widget.onChanged,
             validator: widget.validator,
+            readOnly: widget.readOnly,
+            onTap: widget.onTap,
+            maxLines: widget.maxLines,
+            minLines: widget.maxLines != null && widget.maxLines! > 1 ? widget.maxLines : 1,
             style: const TextStyle(
               fontSize: 16,
               color: AppColors.black,
             ),
             decoration: InputDecoration(
               hintText: widget.hintText,
-              hintStyle: const TextStyle(
-                color: AppColors.black,
-                fontSize: 16,
+              hintStyle:  AppFonts.urbanist(
+                color: Colors.grey,
+                fontSize: 12,
               ),
               prefixIcon: widget.prefixIcon != null
                   ? Icon(
@@ -99,9 +110,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 vertical: 16,
               ),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(10),
                 borderSide: const BorderSide(
-                  color: AppColors.border,
+                  color: AppColors.primary,
                   width: 1,
                 ),
               ),

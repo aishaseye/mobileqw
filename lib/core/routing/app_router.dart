@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:qualywatchmobile/presentation/pages/login_screen.dart';
+import 'package:qualywatchmobile/presentation/pages/register_page_0_vertical.dart';
+import 'package:qualywatchmobile/presentation/pages/register_page_0_horizontal.dart';
+import 'package:qualywatchmobile/presentation/pages/register_page_1.dart';
+import 'package:qualywatchmobile/presentation/pages/register_page_2.dart';
+import 'package:qualywatchmobile/presentation/pages/register_page_3.dart';
 import '../../presentation/pages/splash_screen.dart';
 import '../../presentation/pages/start_screen.dart';
 import '../../presentation/pages/onboarding_screen.dart';
 // TODO: Import other screens as they are created
-// import '../../presentation/pages/auth/login_screen.dart';
-// import '../../presentation/pages/auth/register_screen.dart';
 // import '../../presentation/pages/home/home_screen.dart';
 // import '../../presentation/pages/qr/qr_scanner_screen.dart';
 // import '../../presentation/pages/feedback/feedback_screen.dart';
@@ -17,7 +21,11 @@ class AppRouter {
 
   // Auth routes
   static const String login = '/auth/login';
+  static const String registerIntroVertical = '/auth/register-intro-vertical';
+  static const String registerIntroHorizontal = '/auth/register-intro-horizontal';
   static const String register = '/auth/register';
+  static const String register2 = '/auth/register2';
+  static const String register3 = '/auth/register3';
   static const String forgotPassword = '/auth/forgot-password';
   static const String verifyEmail = '/auth/verify-email';
 
@@ -77,14 +85,50 @@ class AppRouter {
       // Auth routes
       case login:
         return _createRoute(
-          _buildPlaceholderScreen('Login Screen'),
+          LoginPage(),
           settings: settings,
           transitionType: RouteTransitionType.slideFromBottom,
         );
 
+      case registerIntroVertical:
+        return _createRoute(
+          const RegisterPage0Vertical(),
+          settings: settings,
+          transitionType: RouteTransitionType.slideFromRight,
+        );
+
+      case registerIntroHorizontal:
+        return _createRoute(
+          const RegisterPage0Horizontal(),
+          settings: settings,
+          transitionType: RouteTransitionType.fade,
+        );
+
       case register:
         return _createRoute(
-          _buildPlaceholderScreen('Register Screen'),
+          const RegisterPage1(),
+          settings: settings,
+          transitionType: RouteTransitionType.slideFromRight,
+        );
+
+      case register2:
+        final args = settings.arguments as Map<String, dynamic>?;
+        final managerData = args?['managerData'] as Map<String, dynamic>? ?? {};
+        return _createRoute(
+          RegisterPage2(managerData: managerData),
+          settings: settings,
+          transitionType: RouteTransitionType.slideFromRight,
+        );
+
+      case register3:
+        final args = settings.arguments as Map<String, dynamic>?;
+        final managerData = args?['managerData'] as Map<String, dynamic>? ?? {};
+        final companyData = args?['companyData'] as Map<String, dynamic>? ?? {};
+        return _createRoute(
+          RegisterPage3(
+            managerData: managerData,
+            companyData: companyData,
+          ),
           settings: settings,
           transitionType: RouteTransitionType.slideFromRight,
         );

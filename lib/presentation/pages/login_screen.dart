@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:qualywatchmobile/core/constants/app_assets.dart';
 import 'package:qualywatchmobile/core/constants/app_colors.dart';
+import 'package:qualywatchmobile/core/constants/app_fonts.dart';
 import 'package:qualywatchmobile/presentation/widgets/custom_textfield.dart';
 // Import de votre classe AppColors existante
 // import 'path/to/your/app_colors.dart';
@@ -35,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.secondary,
+      backgroundColor: AppColors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -43,35 +45,24 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               children: [
                 const SizedBox(height: 60),
-                
-                // Logo ou titre
-                Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    color: AppColors.primary,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: const Icon(
-                    Icons.lock,
-                    color: Colors.white,
-                    size: 40,
-                  ),
-                ),
-                
-                const SizedBox(height: 24),
-                
-                const Text(
+                Image.asset(
+                  AppAssets.logo,
+                  width: 100,
+                  height: 100,
+                  fit: BoxFit.contain,
+                ),                
+                const SizedBox(height: 10),
+                 Text(
                   'Connexion',
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.black,
+                 style: AppFonts.luckiestGuy(
+                    fontSize: 26, // Légèrement réduit de 28 à 26
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textPrimary,
+                    height: 1.2,
                   ),
                 ),
-                
                 const SizedBox(height: 8),
-                
+      
                 const Text(
                   'Connectez-vous à votre compte',
                   style: TextStyle(
@@ -131,9 +122,9 @@ class _LoginPageState extends State<LoginPage> {
                           onPressed: () {
                             // Action mot de passe oublié
                           },
-                          child: const Text(
+                          child:  Text(
                             'Mot de passe oublié ?',
-                            style: TextStyle(
+                            style:  AppFonts.urbanist(
                               color: AppColors.primary,
                               fontSize: 14,
                             ),
@@ -157,9 +148,9 @@ class _LoginPageState extends State<LoginPage> {
                               borderRadius: BorderRadius.circular(8),
                             ),
                           ),
-                          child: const Text(
+                          child:  Text(
                             'Se connecter',
-                            style: TextStyle(
+                            style: AppFonts.urbanist(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
                             ),
@@ -173,16 +164,16 @@ class _LoginPageState extends State<LoginPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text(
+                           Text(
                             'Vous n\'avez pas de compte ? ',
-                            style: TextStyle(
-                              color: AppColors.primary,
+                            style: AppFonts.urbanist(
+                              color: AppColors.black,
                               fontSize: 14,
                             ),
                           ),
                           TextButton(
                             onPressed: () {
-                              // Navigation vers page d'inscription
+                              Navigator.pushNamed(context, '/auth/register');
                             },
                             child: const Text(
                               'S\'inscrire',

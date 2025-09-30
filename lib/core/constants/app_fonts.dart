@@ -51,6 +51,22 @@ class AppFonts {
     );
   }
 
+  static TextStyle luckiestGuy({
+    double? fontSize,
+    FontWeight? fontWeight,
+    Color? color,
+    double? letterSpacing,
+    double? height,
+  }) {
+    return GoogleFonts.luckiestGuy(
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      color: color,
+      letterSpacing: letterSpacing,
+      height: height,
+    );
+  }
+
   // Predefined text styles for the app
 
   // Headers (using Coiny for fun headers)
