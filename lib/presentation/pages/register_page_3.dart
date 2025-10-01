@@ -4,6 +4,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:qualywatchmobile/core/constants/app_assets.dart';
 import 'package:qualywatchmobile/core/constants/app_colors.dart';
 import 'package:qualywatchmobile/core/constants/app_fonts.dart';
+import 'package:qualywatchmobile/l10n/app_localizations.dart';
+import 'package:qualywatchmobile/presentation/widgets/custom_elevated_button.dart';
+import 'package:qualywatchmobile/presentation/widgets/animated_step_indicator.dart';
 
 class RegisterPage3 extends StatefulWidget {
   final Map<String, dynamic> managerData;
@@ -44,7 +47,7 @@ class _RegisterPage3State extends State<RegisterPage3> {
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Erreur lors de la sélection: $e')),
+        SnackBar(content: Text('${AppLocalizations.of(context)!.errorDuringSelection}: $e')),
       );
     }
   }
@@ -68,12 +71,13 @@ class _RegisterPage3State extends State<RegisterPage3> {
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Erreur lors de la prise de photo: $e')),
+        SnackBar(content: Text('${AppLocalizations.of(context)!.errorDuringPhotoCapture}: $e')),
       );
     }
   }
 
   void _showImageSourceDialog({required bool isCompanyPhoto}) {
+    final l10n = AppLocalizations.of(context)!;
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -85,7 +89,7 @@ class _RegisterPage3State extends State<RegisterPage3> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Choisir une source',
+              l10n.chooseSource,
               style: AppFonts.urbanist(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
@@ -95,7 +99,7 @@ class _RegisterPage3State extends State<RegisterPage3> {
             ListTile(
               leading: const Icon(Icons.collections_rounded, color: AppColors.primary, size: 28),
               title: Text(
-                'Galerie',
+                l10n.gallery,
                 style: AppFonts.urbanist(fontSize: 16),
               ),
               onTap: () {
@@ -106,7 +110,7 @@ class _RegisterPage3State extends State<RegisterPage3> {
             ListTile(
               leading: const Icon(Icons.photo_camera_rounded, color: AppColors.primary, size: 28),
               title: Text(
-                'Appareil photo',
+                l10n.camera,
                 style: AppFonts.urbanist(fontSize: 16),
               ),
               onTap: () {
@@ -123,8 +127,8 @@ class _RegisterPage3State extends State<RegisterPage3> {
   Future<void> _handleSubmit() async {
     if (_companyPhoto == null || _managerLogo == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Veuillez ajouter les deux photos'),
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.pleaseAddBothPhotos),
           backgroundColor: Colors.red,
         ),
       );
@@ -151,8 +155,8 @@ class _RegisterPage3State extends State<RegisterPage3> {
     // Navigate to success screen or home
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Inscription réussie!'),
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.registrationSuccessful),
           backgroundColor: Colors.green,
         ),
       );
@@ -168,6 +172,7 @@ class _RegisterPage3State extends State<RegisterPage3> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: AppBar(
@@ -197,7 +202,7 @@ class _RegisterPage3State extends State<RegisterPage3> {
 
                 // Title
                 Text(
-                  'Photos',
+                  l10n.photos,
                   style: AppFonts.luckiestGuy(
                     fontSize: 24,
                     fontWeight: FontWeight.w600,
@@ -210,7 +215,7 @@ class _RegisterPage3State extends State<RegisterPage3> {
 
                 // Subtitle
                 Text(
-                  'Étape 3/3',
+                  l10n.step('3', '3'),
                   style: AppFonts.urbanist(
                     fontSize: 14,
                     color: AppColors.textSecondary,
@@ -220,22 +225,16 @@ class _RegisterPage3State extends State<RegisterPage3> {
                 const SizedBox(height: 8),
 
                 // Progress indicator
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _buildProgressDot(number: 1, isActive: true),
-                    _buildProgressLine(isActive: true),
-                    _buildProgressDot(number: 2, isActive: true),
-                    _buildProgressLine(isActive: true),
-                    _buildProgressDot(number: 3, isActive: true),
-                  ],
+                AnimatedStepIndicator(
+                  currentStep: 3,
+                  totalSteps: 3,
                 ),
 
                 const SizedBox(height: 32),
 
                 // Description
                 Text(
-                  'Ajoutez une photo de votre entreprise et votre logo',
+                  l10n.addPhotosDescription,
                   style: AppFonts.urbanist(
                     fontSize: 14,
                     color: AppColors.textSecondary,
@@ -250,7 +249,7 @@ class _RegisterPage3State extends State<RegisterPage3> {
                   children: [
                     Expanded(
                       child: _buildPhotoUploadCard(
-                        title: 'Photo entreprise',
+                        title: l10n.companyPhoto,
                         icon: Icons.storefront_rounded,
                         image: _companyPhoto,
                         onTap: () => _showImageSourceDialog(isCompanyPhoto: true),
@@ -259,7 +258,7 @@ class _RegisterPage3State extends State<RegisterPage3> {
                     const SizedBox(width: 16),
                     Expanded(
                       child: _buildPhotoUploadCard(
-                        title: 'Logo gérant',
+                        title: l10n.managerLogo,
                         icon: Icons.account_circle_rounded,
                         image: _managerLogo,
                         onTap: () => _showImageSourceDialog(isCompanyPhoto: false),
@@ -271,37 +270,10 @@ class _RegisterPage3State extends State<RegisterPage3> {
                 const SizedBox(height: 40),
 
                 // Bouton Terminer
-                SizedBox(
-                  width: double.infinity,
-                  height: 52,
-                  child: ElevatedButton(
-                    onPressed: _isLoading ? null : _handleSubmit,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primary,
-                      foregroundColor: Colors.white,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      disabledBackgroundColor: AppColors.grey,
-                    ),
-                    child: _isLoading
-                        ? const SizedBox(
-                            width: 24,
-                            height: 24,
-                            child: CircularProgressIndicator(
-                              color: Colors.white,
-                              strokeWidth: 2,
-                            ),
-                          )
-                        : Text(
-                            'Terminer',
-                            style: AppFonts.urbanist(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                  ),
+                CustomElevatedButton(
+                  onPressed: _handleSubmit,
+                  text: l10n.finish,
+                  isLoading: _isLoading,
                 ),
 
                 const SizedBox(height: 40),
@@ -389,40 +361,6 @@ class _RegisterPage3State extends State<RegisterPage3> {
                 ],
               ),
       ),
-    );
-  }
-
-  Widget _buildProgressDot({required int number, required bool isActive}) {
-    return Container(
-      width: 32,
-      height: 32,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: isActive ? AppColors.primary : Colors.white,
-        border: Border.all(
-          color: isActive ? AppColors.primary : AppColors.grey,
-          width: 2,
-        ),
-      ),
-      child: Center(
-        child: Text(
-          '$number',
-          style: AppFonts.urbanist(
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            color: isActive ? Colors.white : AppColors.grey,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildProgressLine({required bool isActive}) {
-    return Container(
-      width: 40,
-      height: 2,
-      color: isActive ? AppColors.primary : AppColors.grey,
-      margin: const EdgeInsets.symmetric(horizontal: 4),
     );
   }
 }

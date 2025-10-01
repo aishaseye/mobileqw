@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:qualywatchmobile/core/constants/app_colors.dart';
 import 'package:qualywatchmobile/core/constants/app_fonts.dart';
 import 'package:qualywatchmobile/presentation/widgets/custom_textfield.dart';
+import 'package:qualywatchmobile/l10n/app_localizations.dart';
+import 'package:qualywatchmobile/presentation/widgets/custom_elevated_button.dart';
+import 'package:qualywatchmobile/presentation/widgets/animated_step_indicator.dart';
 
 class RegisterPage2 extends StatefulWidget {
   final Map<String, dynamic> managerData;
@@ -63,15 +66,15 @@ class _RegisterPage2State extends State<RegisterPage2> {
     if (_formKey.currentState!.validate()) {
       if (_selectedCategory == null) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Veuillez sélectionner une catégorie')),
+          SnackBar(content: Text(AppLocalizations.of(context)!.pleaseSelectCategory)),
         );
         return;
       }
 
       if (_selectedEmployeeRange == null) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-              content: Text('Veuillez sélectionner le nombre d\'employés')),
+          SnackBar(
+              content: Text(AppLocalizations.of(context)!.pleaseSelectNumberOfEmployees)),
         );
         return;
       }
@@ -129,6 +132,7 @@ class _RegisterPage2State extends State<RegisterPage2> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: AppBar(
@@ -149,7 +153,7 @@ class _RegisterPage2State extends State<RegisterPage2> {
 
                 // Title
                 Text(
-                  'Informations Entreprise',
+                  l10n.companyInfo,
                   style: AppFonts.luckiestGuy(
                     fontSize: 24,
                     fontWeight: FontWeight.w600,
@@ -162,7 +166,7 @@ class _RegisterPage2State extends State<RegisterPage2> {
 
                 // Subtitle
                 Text(
-                  'Étape 2/3',
+                  l10n.step('2', '3'),
                   style: AppFonts.urbanist(
                     fontSize: 14,
                     color: AppColors.textSecondary,
@@ -172,15 +176,9 @@ class _RegisterPage2State extends State<RegisterPage2> {
                 const SizedBox(height: 8),
 
                 // Progress indicator
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _buildProgressDot(number: 1, isActive: true),
-                    _buildProgressLine(isActive: true),
-                    _buildProgressDot(number: 2, isActive: true),
-                    _buildProgressLine(isActive: false),
-                    _buildProgressDot(number: 3, isActive: false),
-                  ],
+                AnimatedStepIndicator(
+                  currentStep: 2,
+                  totalSteps: 3,
                 ),
 
                 const SizedBox(height: 32),
@@ -192,14 +190,14 @@ class _RegisterPage2State extends State<RegisterPage2> {
                     children: [
                       // Nom entreprise
                       CustomTextField(
-                        label: 'Nom de l\'entreprise',
-                        hintText: 'Entrez le nom',
+                        label: l10n.companyName,
+                        hintText: l10n.enterName,
                         prefixIcon: Icons.business_center_rounded,
                         controller: _nomEntrepriseController,
                         keyboardType: TextInputType.text,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Veuillez saisir le nom';
+                            return l10n.pleaseEnterName;
                           }
                           return null;
                         },
@@ -209,18 +207,18 @@ class _RegisterPage2State extends State<RegisterPage2> {
 
                       // Email
                       CustomTextField(
-                        label: 'Email entreprise',
-                        hintText: 'contact@entreprise.com',
+                        label: l10n.companyEmail,
+                        hintText: l10n.companyEmailHint,
                         prefixIcon: Icons.alternate_email_rounded,
                         controller: _emailController,
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Veuillez saisir l\'email';
+                            return l10n.pleaseEnterEmail;
                           }
                           if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
                               .hasMatch(value)) {
-                            return 'Email invalide';
+                            return l10n.invalidEmail;
                           }
                           return null;
                         },
@@ -230,14 +228,14 @@ class _RegisterPage2State extends State<RegisterPage2> {
 
                       // Téléphone
                       CustomTextField(
-                        label: 'Téléphone',
-                        hintText: 'Entrez le numéro',
+                        label: l10n.phone,
+                        hintText: l10n.enterPhoneNumber,
                         prefixIcon: Icons.call_rounded,
                         controller: _phoneController,
                         keyboardType: TextInputType.phone,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Veuillez saisir le numéro';
+                            return l10n.pleaseEnterPhoneNumber;
                           }
                           return null;
                         },
@@ -250,7 +248,7 @@ class _RegisterPage2State extends State<RegisterPage2> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Catégorie',
+                            l10n.category,
                             style: AppFonts.urbanist(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
@@ -312,7 +310,7 @@ class _RegisterPage2State extends State<RegisterPage2> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Nombre d\'employés',
+                            l10n.numberOfEmployees,
                             style: AppFonts.urbanist(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
@@ -372,15 +370,15 @@ class _RegisterPage2State extends State<RegisterPage2> {
 
                       // Description
                       CustomTextField(
-                        label: 'Description',
-                        hintText: 'Décrivez votre entreprise',
+                        label: l10n.description,
+                        hintText: l10n.describeYourCompany,
                         prefixIcon: Icons.article_rounded,
                         controller: _descriptionController,
                         keyboardType: TextInputType.multiline,
                          maxLines: 4,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Veuillez saisir une description';
+                            return l10n.pleaseEnterDescription;
                           }
                           return null;
                         },
@@ -390,15 +388,15 @@ class _RegisterPage2State extends State<RegisterPage2> {
 
                       // Date de création
                       CustomTextField(
-                        label: 'Date de création',
-                        hintText: 'JJ/MM/AAAA',
+                        label: l10n.creationDate,
+                        hintText: l10n.dateFormat,
                         prefixIcon: Icons.event_rounded,
                         controller: _dateCreationController,
                         readOnly: true,
                         onTap: _selectDate,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Veuillez sélectionner une date';
+                            return l10n.pleaseSelectDate;
                           }
                           return null;
                         },
@@ -408,14 +406,14 @@ class _RegisterPage2State extends State<RegisterPage2> {
 
                       // Location
                       CustomTextField(
-                        label: 'Localisation',
-                        hintText: 'Ville, Pays',
+                        label: l10n.location,
+                        hintText: l10n.cityCountry,
                         prefixIcon: Icons.place_rounded,
                         controller: _locationController,
                         keyboardType: TextInputType.text,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Veuillez saisir la localisation';
+                            return l10n.pleaseEnterLocation;
                           }
                           return null;
                         },
@@ -424,27 +422,9 @@ class _RegisterPage2State extends State<RegisterPage2> {
                       const SizedBox(height: 32),
 
                       // Bouton Suivant
-                      SizedBox(
-                        width: double.infinity,
-                        height: 52,
-                        child: ElevatedButton(
-                          onPressed: _handleNext,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.primary,
-                            foregroundColor: Colors.white,
-                            elevation: 0,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          ),
-                          child: Text(
-                            'Suivant',
-                            style: AppFonts.urbanist(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
+                      CustomElevatedButton(
+                        onPressed: _handleNext,
+                        text: l10n.next,
                       ),
 
                       const SizedBox(height: 40),
@@ -456,40 +436,6 @@ class _RegisterPage2State extends State<RegisterPage2> {
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildProgressDot({required int number, required bool isActive}) {
-    return Container(
-      width: 32,
-      height: 32,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: isActive ? AppColors.primary : Colors.white,
-        border: Border.all(
-          color: isActive ? AppColors.primary : AppColors.grey,
-          width: 2,
-        ),
-      ),
-      child: Center(
-        child: Text(
-          '$number',
-          style: AppFonts.urbanist(
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            color: isActive ? Colors.white : AppColors.grey,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildProgressLine({required bool isActive}) {
-    return Container(
-      width: 40,
-      height: 2,
-      color: isActive ? AppColors.primary : AppColors.grey,
-      margin: const EdgeInsets.symmetric(horizontal: 4),
     );
   }
 }

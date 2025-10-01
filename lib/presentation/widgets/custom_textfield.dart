@@ -82,13 +82,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 color: Colors.grey,
                 fontSize: 12,
               ),
-              prefixIcon: widget.prefixIcon != null
+              /* prefixIcon: widget.prefixIcon != null
                   ? Icon(
                       widget.prefixIcon,
                       color: _isFocused ? AppColors.primary : AppColors.primary,
                       size: 20,
                     )
-                  : null,
+                  : null, */
               suffixIcon: widget.isPassword
                   ? IconButton(
                       icon: Icon(
@@ -110,28 +110,28 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 vertical: 16,
               ),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(20),
                 borderSide: const BorderSide(
                   color: AppColors.primary,
                   width: 1,
                 ),
               ),
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(20),
                 borderSide: const BorderSide(
                   color: AppColors.border,
                   width: 1,
                 ),
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(20),
                 borderSide: const BorderSide(
                   color: AppColors.primary,
                   width: 2,
                 ),
               ),
               errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(20),
                 borderSide: const BorderSide(
                   color: AppColors.error,
                   width: 1,
